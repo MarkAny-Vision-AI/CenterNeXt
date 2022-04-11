@@ -58,8 +58,14 @@ python create_gt_files.py
 
 ### Training
 ```
-python train.py --model ./configs/models/your_model.yaml
+python train.py --model ./configs/models/your_model.yaml 
 ```
+
+#### On Multi GPU
+```
+torchrun --nproc_per_node={number of gpus} train.py --model ./configs/models/your_model.yaml 
+```
+
 
 ### Evaluation
 ```
