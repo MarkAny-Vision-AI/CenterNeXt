@@ -65,7 +65,7 @@ class DetectionDataset(Dataset):  # for training/testing
     
             img, bboxes_cxcywh = transforms.horizontal_flip(img, bboxes_cxcywh, p=0.5)
             img, bboxes_cxcywh = transforms.random_translation(img, bboxes_cxcywh, p=1.0)
-            img, bboxes_cxcywh = transforms.random_scale(img, bboxes_cxcywh, p=1.0)
+            img, bboxes_cxcywh = transforms.random_scale(img, bboxes_cxcywh, p=1.0, bbox_wmin_thr=16, bbox_hmin_thr=16)
             img = transforms.augment_hsv(img)
 
         #numpy(=opencv)img 2 pytorch tensor        
