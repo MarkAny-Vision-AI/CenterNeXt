@@ -99,7 +99,9 @@ class DetectionDataset(Dataset):  # for training/testing
         for bbox in label:
             bbox_class = int(bbox[0])
             bbox_fcx, bbox_fcy, bbox_w, bbox_h = bbox[1:]
-            bbox_icx, bbox_icy = int(bbox_fcx), int(bbox_fcy)            
+            bbox_icx, bbox_icy = int(bbox_fcx), int(bbox_fcy)
+            bbox_icx = np.clip(bbox_icx, 0, self.heatmap_w-1)
+            bbox_icy = np.clip(bbox_icy, 0, self.heatmap_h-1)
             classes_gaussian_heatmap[bbox_class] = transforms.scatter_gaussian_kernel(classes_gaussian_heatmap[bbox_class], bbox_icx, bbox_icy, bbox_w.item(), bbox_h.item())
 
         annotations = torch.tensor(annotations)
