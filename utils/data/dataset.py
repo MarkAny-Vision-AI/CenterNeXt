@@ -87,8 +87,8 @@ class DetectionDataset(Dataset):  # for training/testing
         classes_gaussian_heatmap = np.zeros(shape=(self.num_classes, self.heatmap_h, self.heatmap_w), dtype=np.float32)
         foreground = np.zeros(shape=(self.heatmap_h, self.heatmap_w), dtype=np.float32)
         
-        bboxes_icx = label[:, 1].astype(np.int)
-        bboxes_icy = label[:, 2].astype(np.int)
+        bboxes_icx = label[:, 1].astype(np.int).clip(max=self.heatmap_w-1)
+        bboxes_icy = label[:, 2].astype(np.int).clip(max=self.heatmap_h-1)
         
         foreground[bboxes_icy, bboxes_icx] = 1
         bboxes_regression[0, bboxes_icy, bboxes_icx] = label[:, 1] - bboxes_icx
